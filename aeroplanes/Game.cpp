@@ -188,6 +188,11 @@ void Game::render()
 	}
 	m_window.draw(m_bigPlaneSprite);
 	m_window.draw(m_smallPlaneSprite);
+	if (m_editmode)
+	{
+		editSprite(m_bigPlaneSprite, m_bigPlaneHeading);
+		editSprite(m_smallPlaneSprite, m_smallPlaneHeading);
+	}
 	if (m_explosionOn)
 	{
 		m_window.draw(m_explosionSprite);
@@ -347,6 +352,17 @@ void Game::setupSprites()
 	m_explosionSprite.setTexture(m_explosionTexture);
 	m_explosionSprite.setOrigin(50.0f, 50.0f);
 	m_explosionSprite.setTextureRect(sf::IntRect{ 0, 0, 100, 100 });
+}
+
+void Game::editSprite(sf::Sprite t_sprite, float t_heading)
+{
+	sf::CircleShape dot;
+	dot.setFillColor(sf::Color::Yellow);
+	dot.setPosition(t_sprite.getPosition());
+	dot.setOrigin(4.0f, 4.0f);
+	dot.setRadius(4.0f);
+
+	m_window.draw(dot);
 }
 
 
