@@ -363,7 +363,18 @@ void Game::editSprite(sf::Sprite t_sprite, float t_heading)
 	sf::CircleShape dot;
 	sf::CircleShape ring;
 	sf::RectangleShape localBounds;
+	sf::RectangleShape globalBounds;
 	float radius { 0.0f };
+	globalBounds.setFillColor(sf::Color::Transparent);
+	globalBounds.setOutlineColor(sf::Color::Green);
+	globalBounds.setOutlineThickness(2.0f);
+	globalBounds.setOrigin(t_sprite.getGlobalBounds().width/ 2.0f, 
+		t_sprite.getGlobalBounds().height / 2.0f);
+	globalBounds.setPosition(t_sprite.getPosition());
+	//globalBounds.setRotation(t_sprite.getRotation());
+	globalBounds.setSize(sf::Vector2f(t_sprite.getGlobalBounds().width,
+		t_sprite.getGlobalBounds().height));
+
 
 	localBounds.setFillColor(sf::Color::Transparent);
 	localBounds.setOutlineColor(sf::Color::Black);
@@ -394,6 +405,7 @@ void Game::editSprite(sf::Sprite t_sprite, float t_heading)
 	dot.setOrigin(4.0f, 4.0f);
 	dot.setRadius(4.0f);
 
+	m_window.draw(globalBounds);
 	m_window.draw(localBounds);
 	m_window.draw(dot);
 	m_window.draw(ring);
