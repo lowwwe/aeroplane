@@ -357,12 +357,30 @@ void Game::setupSprites()
 void Game::editSprite(sf::Sprite t_sprite, float t_heading)
 {
 	sf::CircleShape dot;
+	sf::CircleShape ring;
+	float radius { 0.0f };
+	ring.setFillColor(sf::Color::Transparent);
+	ring.setOutlineColor(sf::Color::Red);
+	ring.setOutlineThickness(3.0f);
+	if (t_sprite.getLocalBounds().height > t_sprite.getLocalBounds().width)
+	{
+		radius = t_sprite.getLocalBounds().height / 2.0f;
+	}
+	else
+	{
+		radius = t_sprite.getLocalBounds().width /2.0f;
+	}
+	ring.setOrigin(radius, radius);
+	ring.setRadius(radius);
+	ring.setPosition(t_sprite.getPosition());
+
 	dot.setFillColor(sf::Color::Yellow);
 	dot.setPosition(t_sprite.getPosition());
 	dot.setOrigin(4.0f, 4.0f);
 	dot.setRadius(4.0f);
 
 	m_window.draw(dot);
+	m_window.draw(ring);
 }
 
 
