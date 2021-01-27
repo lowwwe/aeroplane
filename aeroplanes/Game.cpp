@@ -106,6 +106,10 @@ void Game::processKeys(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+	if (sf::Keyboard::F1 == t_event.key.code)
+	{
+		m_editmode = !m_editmode;
+	}
 }
 
 /// <summary>
@@ -358,7 +362,18 @@ void Game::editSprite(sf::Sprite t_sprite, float t_heading)
 {
 	sf::CircleShape dot;
 	sf::CircleShape ring;
+	sf::RectangleShape localBounds;
 	float radius { 0.0f };
+
+	localBounds.setFillColor(sf::Color::Transparent);
+	localBounds.setOutlineColor(sf::Color::Black);
+	localBounds.setOutlineThickness(2.0f);
+	localBounds.setPosition(t_sprite.getPosition());
+	localBounds.setSize(sf::Vector2f(t_sprite.getLocalBounds().width,
+		t_sprite.getLocalBounds().height));
+	localBounds.setOrigin(t_sprite.getOrigin());
+	localBounds.setRotation(t_heading);
+
 	ring.setFillColor(sf::Color::Transparent);
 	ring.setOutlineColor(sf::Color::Red);
 	ring.setOutlineThickness(3.0f);
@@ -379,6 +394,7 @@ void Game::editSprite(sf::Sprite t_sprite, float t_heading)
 	dot.setOrigin(4.0f, 4.0f);
 	dot.setRadius(4.0f);
 
+	m_window.draw(localBounds);
 	m_window.draw(dot);
 	m_window.draw(ring);
 }
